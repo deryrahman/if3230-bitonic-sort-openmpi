@@ -48,7 +48,7 @@ Kemudian ketika merge dilakukan, hasil sequence yang telah diurutkan menaik / me
 
 <p style="text-align: center;">Ilustrasi 1.1</p>
 
-Dari ilustrasi terlihat bahwa setiap proses hanya bertugas untuk melakukan merge terhadap proses tetangganya. Hal ini dapat mengurangi beban yang dilakukan jika hanya menggunakan 1 proses saja. Setiap proses hanya bertanggung jawab terhadap subsequence yang diassign kepadanya.
+Dari ilustrasi terlihat bahwa setiap proses hanya bertugas untuk melakukan merge dan sort terhadap subsequence dari proses tetangganya. Hal ini dapat mengurangi beban yang dilakukan, karena setiap proses hanya bertanggung jawab terhadap subsequence yang diassign kepadanya.
 
 ### Analisis solusi
 Solusi yang digunakan yaitu memparalelkan pada fungsi rekursif bitonic sort. Setiap proses yang telah mendapat subsequence dari proses tetangganya (proses merge) dapat melakukan sorting bitonic dalam waktu yang bersamaan. Sehingga hal ini dapat mempersingkat waktu setiap step rekursifnya.
