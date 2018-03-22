@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "utils.h"
 
 void swap(int* a, int* b){
@@ -46,4 +44,12 @@ int getPowTwo(int n){
   int d=1;
   while (d>0 && d<n) d<<=1;
   return d;
+}
+
+void writeToFile(int* arr, int n, char* path){
+  FILE* f = fopen(path,"w");
+  for(int i=0; i<n; i++) {
+      fprintf(f, "%d\n", arr[i]);
+  }
+  fclose(f);
 }

@@ -1,7 +1,4 @@
 #include "bitonic_sort.h"
-#include "quick_sort.h"
-#include <mpi.h>
-#include <stdio.h>
 
 void bitSwap(int* a, int* b, int dir){
   if((*a>*b) == dir){
@@ -47,8 +44,16 @@ void bitSort(int* arr, int lo, int n, int dir, int n_proc){
     }
   } else {
     if(my_rank*n == lo){
-      // printf("rank = %d | | lo =  %d | n = %d\n", my_rank, lo, n);
-      quickSort(arr,lo,lo+n,dir);
+      bitSortSer(arr,lo,n,dir);
     }
+  }
+}
+
+void bitSortSer(int* arr, int lo, int n, int dir){
+  int m = n/2;
+  if(n>1){
+    bitSortSer(arr, lo, m, 1);
+    bitSortSer(arr, lo+m, m, 0);
+    bitMerge(arr, lo, n, dir);
   }
 }
