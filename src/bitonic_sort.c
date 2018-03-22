@@ -38,22 +38,26 @@ void bitSort(int* arr, int lo, int n, int dir, int n_proc){
       // printf("-> | n proc = %d | rank = %d | idx = %d | lo =  %d | n = %d | gap %d\n", n_proc, my_rank, my_rank*m, lo, n, gap);
       int neighbour_proc = (my_rank-gap+comm_sz)%comm_sz;
       // printf("-> | rank = %d | | lo =  %d | n = %d | gap %d\nsend to proc %d\n", my_rank, lo, n, gap, neighbour_proc);
-      MPI_Send(arr+lo+m, m, MPI_INT, neighbour_proc, gap, MPI_COMM_WORLD);
       MPI_Recv(arr+lo, m, MPI_INT, neighbour_proc, gap, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      MPI_Send(arr+lo+m, m, MPI_INT, neighbour_proc, gap, MPI_COMM_WORLD);
       bitMerge(arr, lo, n, dir);
     }
   } else {
-    if(my_rank*n == lo){
+    // printf("n %d rank %d lo %d\n", n, my_rank, lo);
+    // if(my_rank*n == lo){
       bitSortSer(arr,lo,n,dir);
-    }
+    // }
   }
 }
 
 void bitSortSer(int* arr, int lo, int n, int dir){
   int m = n/2;
   if(n>1){
+    // printf("<- \n");
     bitSortSer(arr, lo, m, 1);
+    // printf("-> \n");
     bitSortSer(arr, lo+m, m, 0);
+    // printf("merge \n");
     bitMerge(arr, lo, n, dir);
   }
 }
