@@ -5,13 +5,13 @@ Tugas OpenMPI - Bitonic Sort. Praktikum2_K01_13515097
 ## Petunjuk penggunaan program
 
 1. Buka terminal, jalankan make
-    ```
-    $ make
-    ```
+```
+$ make
+  ```
 2. Untuk menjalankan program, jalankan
-    ```
-    $ mpirun -np <p> ./bitonic_sort <n>
-    ```
+```
+$ mpirun -np <p> ./bitonic_sort <n>
+```
     - p : banyaknya proses yang digunakan
     - n : problem size / banyaknya elemen random
 
@@ -45,6 +45,7 @@ void bitSort(int* arr, int lo, int n, int dir, int n_proc){
 Kemudian ketika merge dilakukan, hasil sequence yang telah diurutkan menaik / menurun pada tiap proses, akan ditransfer ke proses tetangganya dengan cara melakukan message passing. Merge akan dilakukan kedua proses tersebut, dimana sequence akhir yang telah dimerge tersebut akan terurut menaik / menurun.
 
 <div style="text-align:center"><img src ="docs/bitonic_mpi.jpg" /></div>
+
 <p style="text-align: center;">Ilustrasi 1.1</p>
 
 Dari ilustrasi terlihat bahwa setiap proses hanya bertugas untuk melakukan merge terhadap proses tetangganya. Hal ini dapat mengurangi beban yang dilakukan jika hanya menggunakan 1 proses saja. Setiap proses hanya bertanggung jawab terhadap subsequence yang diassign kepadanya.
@@ -91,7 +92,7 @@ Untuk mendapatkan kinerja yang lebih baik, sorting serial yang dilakukan pertama
 Atau bisa juga dengan mengurangi overhead ketika melakukan *message passing* / mengefisiensikan IO.
 
 ### Jumlah proses
-Saya menggunakan jumlah proses sebanyak 4 atau 8 buah. Hal ini didapatkan pada eksperimen yang melibatkan 400.000 random number, dengan pengujian 2,4,8,16,32, dan 64 proses. Eksperimen dilakukan sebanyak 3x. Kemudian dilihat efisiensi dari speedup yang paling tinggi.
+Saya menggunakan jumlah proses sebanyak 4 atau 8 buah. Hal ini didapatkan pada eksperimen yang melibatkan 400.000 random number, dengan pengujian 2,4,8,16,32, dan 64 proses. Eksperimen dilakukan sebanyak 3x. Kemudian diambil efisiensi dari rata-ratanya.
 
 
 | p | Percobaan 1 | Percobaan 2 | Percobaan 3 | Efisiensi |
